@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Q3</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $.ajax({
+            type: 'GET',
+            url: 'patientfixed.json',
+            dataType: 'json',
+            success: jsonParser
+        });
+    });
+
+    function jsonParser(json) {
+      $.getJSON('patientfixed.json', function(data) {
+
+        var name = data.name;
+        $('#name').append(name.given + " " + name.family)
+
+        var organization = data.managingOrganization.display;
+        $('#organization').append(organization)
+
+        var gender = data.gender;
+        $('#gender').append(gender)
+
+        var conditions = data.conditions;
+        $('#number').append(conditions.length)
+        $('#conditions').append("<br>- " + conditions[0] + "<br>- " + conditions[1] + "<br>- " + conditions[2])
+
+      });
+    }
+    </script>
+  </head>
+  <body>
+    <h1>Patients</h1>
+      <div id="name">
+        Name of patient:
+      </div>
+      <div id="organization">
+        Organization name:
+      </div>
+      <div id="gender">
+        Gender:
+      </div>
+      <div id="number">
+        Number of conditions they have:
+      </div>
+      <div id="conditions">
+        List of all conditions:
+      </div>
+  </body>
+</html>
